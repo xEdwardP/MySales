@@ -23,9 +23,9 @@
               <div class="card-body">
                 <h5 class="card-title">Categorias Registradas</h5>
                 {{-- <p>Descripcion</p> --}}
-                <buttom class="btn btn-primary">
-                    <i class="fa-solid fa-circle-plus"></i> Nueva Categoria
-                </buttom>
+                <a href="{{route('categories.create')}}" class="btn btn-primary">
+                  <i class="fa-solid fa-circle-plus"></i> Nueva Categoria
+                </a>
                 <hr>
                 <table class="table datatable">
                   <thead>

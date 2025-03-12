@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -22,7 +23,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $title = "Nueva Categoria";
+        return view('modules.categories.create',compact('title'));
     }
 
     /**
@@ -30,7 +32,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new Category();
+        $item->user_id = Auth::user()->id;
+        $item->name = $request->name;
+        $item->save();
+        return to_route('categories');
     }
 
     /**

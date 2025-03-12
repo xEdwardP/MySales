@@ -30,6 +30,8 @@ Route::prefix('salesdetails')->middleware('auth')->group(function(){
 
 Route::prefix('categories')->middleware('auth')->group(function(){
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
+    Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
 });
 
 Route::prefix('customers')->middleware('auth')->group(function(){
