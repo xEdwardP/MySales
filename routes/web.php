@@ -32,6 +32,8 @@ Route::prefix('categories')->middleware('auth')->group(function(){
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
     Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('/show{id}', [CategoryController::class, 'show'])->name('categories.show');
+    Route::delete('/destroy{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
 
 Route::prefix('customers')->middleware('auth')->group(function(){

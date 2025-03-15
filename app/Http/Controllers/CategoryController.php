@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $title = "Nueva Categoria";
+        $title = "Nueva Categoría";
         return view('modules.categories.create',compact('title'));
     }
 
@@ -42,9 +42,11 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(string $id)
     {
-        //
+        $title = "Eliminar Categoría";
+        $item = Category::find($id);
+        return view ('modules.categories.show', compact('item', 'title'));
     }
 
     /**
@@ -66,8 +68,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(string $id)
     {
-        //
+        $item = Category::find($id);
+        $item->delete();
+        return to_route('categories');
     }
 }
