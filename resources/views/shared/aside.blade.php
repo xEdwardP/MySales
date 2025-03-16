@@ -11,7 +11,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Ventas</span><i
+                    <i class="fa-solid fa-cash-register"></i><span>Ventas</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -30,28 +30,28 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{route('categories')}}">
-                    <i class="bi bi-envelope"></i>
+                    <i class="fa-solid fa-list"></i>
                     <span>Categorias</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{route('customers')}}">
-                    <i class="bi bi-card-list"></i>
+                    <i class="fa-solid fa-users"></i>
                     <span>Clientes</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{route('products')}}">
-                    <i class="bi bi-box-arrow-in-right"></i>
+                    <i class="fa-solid fa-cart-shopping"></i>
                     <span>Productos</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{route('users')}}">
-                    <i class="bi bi-dash-circle"></i>
+                    <i class="fa-solid fa-circle-user"></i>
                     <span>Usuarios</span>
                 </a>
             </li>

@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Usuarios Registrados</h5>
                             {{-- <p>Descripcion</p> --}}
-                            <a href="" class="btn btn-primary">
+                            <a href="{{route('users.create')}}" class="btn btn-primary">
                                 <i class="fa-solid fa-user-plus"></i> Nuevo Usuario
                             </a>
                             <hr>

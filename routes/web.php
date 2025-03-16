@@ -48,4 +48,6 @@ Route::prefix('products')->middleware('auth')->group(function(){
 
 Route::prefix('users')->middleware('auth')->group(function(){
     Route::get('/', [UserController::class, 'index'])->name('users');
+    Route::get('/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/store', [UserController::class, 'store'])->name('users.store');
 });
