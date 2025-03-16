@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Usuarios Registrados</h5>
                             {{-- <p>Descripcion</p> --}}
-                            <a href="{{route('users.create')}}" class="btn btn-primary">
+                            <a href="{{ route('users.create') }}" class="btn btn-primary">
                                 <i class="fa-solid fa-user-plus"></i> Nuevo Usuario
                             </a>
                             <hr>
@@ -35,7 +35,7 @@
                                         <th class="text-center">Rol</th>
                                         <th class="text-center">Cambiar Clave</th>
                                         <th class="text-center">Activo</th>
-                                        <th class="text-center">Acciones</th>
+                                        <th class="text-center">Editar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,19 +49,24 @@
                                                     <i class="fa-solid fa-user-lock"></i> Actualizar
                                                 </a>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 @if ($item->active)
-                                                    <span class="badge bg-success">Activo</span>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="flexSwitchCheckChecked" checked>
+
+                                                    </div>
                                                 @else
-                                                    <span class="badge bg-warning text-dark">Inactivo</span>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="flexSwitchCheckDefault">
+
+                                                    </div>
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-warning btn-sm">
+                                                <a href="{{route('users.edit', $item->id)}}" class="btn btn-warning btn-sm">
                                                     <i class="fa-solid fa-user-pen"></i> Editar
-                                                </a>
-                                                <a href="#" class="btn btn-danger btn-sm">
-                                                    <i class="fa-solid fa-user-gear"></i> Borrar
                                                 </a>
                                             </td>
                                         </tr>
