@@ -54,4 +54,5 @@ Route::prefix('users')->middleware('auth')->group(function(){
     Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
     Route::get('/tbody', [UserController::class, 'tbody'])->name('users.tbody');
     Route::get('/change-state/{id}/{state}', [UserController::class, 'state'])->name('users.state');
+    Route::get('/change-password/{id}/{password}', [UserController::class, 'changePassword'])->name('users.password');
 });

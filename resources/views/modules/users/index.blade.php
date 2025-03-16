@@ -48,6 +48,7 @@
             </div>
         </section>
     </main>
+    @include('modules.users.modal_change_password')
 @endsection
 
 @push('scripts')
@@ -73,6 +74,27 @@
                     }
                 }
             });
+        }
+
+        function setIdUser(id){
+            $('#user_id').val(id);
+        }
+
+        function changePassword(){
+            let id = $('#user_id').val();
+            let password = $('#password').val();
+
+            $.ajax({
+                type: "GET",
+                url: "users/change-password/" + id + "/" + password,
+                success : function(response){
+                    if (response == 1){
+                        alert("Se ha actualizado la clave correctamente");
+                        $('#frmPassword')[0].reset();
+                    }
+                }
+            });
+            return false;
         }
 
         $(document).ready(function(){

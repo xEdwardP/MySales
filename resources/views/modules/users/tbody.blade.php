@@ -4,14 +4,14 @@
         <td>{{ $item->name }}</td>
         <td>{{ $item->rol }}</td>
         <td>
-            <a href="#" class="btn btn-sm btn-secondary">
+            <a href="#" onclick="setIdUser({{ $item->id }})" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                data-bs-target="#change_password">
                 <i class="fa-solid fa-user-lock"></i> Actualizar
-            </a>
         </td>
         <td class="text-center">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="{{ $item->id }}" 
-                {{ $item->active ? 'checked' : '' }}  >
+                <input class="form-check-input" type="checkbox" id="{{ $item->id }}"
+                    {{ $item->active ? 'checked' : '' }}>
             </div>
         </td>
         <td>

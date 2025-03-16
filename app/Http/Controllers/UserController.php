@@ -61,4 +61,10 @@ class UserController extends Controller
         $item->active = $state;
         return $item->save();
     }
+
+    public function changePassword($id, $password){
+        $item = User::find($id);
+        $item->password = Hash::make($password);
+        return $item->save();
+    }
 }
