@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $title = "Categorias";
@@ -18,18 +15,12 @@ class CategoryController extends Controller
         return view('modules.categories.index', compact('title', 'items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $title = "Nueva Categoría";
-        return view('modules.categories.create',compact('title'));
+        return view('modules.categories.create', compact('title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $item = new Category();
@@ -39,35 +30,28 @@ class CategoryController extends Controller
         return to_route('categories');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $title = "Eliminar Categoría";
         $item = Category::find($id);
-        return view ('modules.categories.show', compact('item', 'title'));
+        return view('modules.categories.show', compact('item', 'title'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
+    public function edit(string $id)
     {
-        //
+        $title = "Actualizar Categoría";
+        $item = Category::find($id);
+        return view('modules.categories.edit', compact('item', 'title'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, string $id)
     {
-        //
+        $item = Category::find($id);
+        $item->name = $request->name;
+        $item->save();
+        return to_route('categories');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $item = Category::find($id);

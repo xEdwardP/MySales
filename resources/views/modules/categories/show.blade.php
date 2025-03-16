@@ -29,7 +29,7 @@
                                 <input type="text" id="category_name" class="form-control" readonly name="name"
                                     value="{{ $item->name }}">
                                 <button class="btn btn-danger mt-3">Eliminar</button>
-                                <a href="{{ route('categories') }}" class="btn btn-warning mt-3">Cancelar</a>
+                                <a href="{{ route('categories') }}" class="btn btn-info mt-3">Cancelar</a>
                             </form>
                         </div>
                     </div>
