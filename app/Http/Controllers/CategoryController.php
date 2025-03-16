@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,11 +24,15 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $item = new Category();
-        $item->user_id = Auth::user()->id;
-        $item->name = $request->name;
-        $item->save();
-        return to_route('categories');
+        try {
+            $item = new Category();
+            $item->user_id = Auth::user()->id;
+            $item->name = $request->name;
+            $item->save();
+            return to_route('categories')->with('success', 'Categoria agregada!');
+        } catch (Exception $e) {
+            return to_route('categorias')->with('error', 'No se pudo guardar!' . $e->getMessage());
+        }
     }
 
     public function show(string $id)
@@ -46,16 +51,24 @@ class CategoryController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $item = Category::find($id);
-        $item->name = $request->name;
-        $item->save();
-        return to_route('categories');
+        try {
+            $item = Category::find($id);
+            $item->name = $request->name;
+            $item->save();
+            return to_route('categories')->with('success', 'Categoria actualizada!');
+        } catch (Exception $e) {
+            return to_route('categories')->with('error', 'No se pudo actualizar!' . $e->getMessage());
+        }
     }
 
     public function destroy(string $id)
     {
-        $item = Category::find($id);
-        $item->delete();
-        return to_route('categories');
+        try {
+            $item = Category::find($id);
+            $item->delete();
+            return to_route('categories')->with('success', 'Categoria Eliminada!');
+        } catch (Exception $e) {
+            return to_route('categories')->with('error', 'No se pudo eliminar!' . $e->getMessage());
+        }
     }
 }
