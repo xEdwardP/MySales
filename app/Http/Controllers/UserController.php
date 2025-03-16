@@ -12,7 +12,7 @@ class UserController extends Controller
     {
         $title = "Usuarios";
         $items = User::all();
-        return view('modules.users.index', compact('title', 'items'));
+        return view('modules.users.index', compact('items', 'title'));
     }
 
     public function create()
@@ -34,11 +34,6 @@ class UserController extends Controller
         return to_route('users');
     }
 
-    public function show(string $id)
-    {
-        //
-    }
-
     public function edit(string $id)
     {
         $item = User::find($id);
@@ -56,8 +51,14 @@ class UserController extends Controller
         return to_route('users');
     }
 
-    public function destroy(string $id)
-    {
-        //
+    public function tbody(){
+        $items = User::all();
+        return view ('modules.users.tbody', compact('items'));
+    }
+
+    public function state($id, $state){
+        $item = User::find($id);
+        $item->active = $state;
+        return $item->save();
     }
 }

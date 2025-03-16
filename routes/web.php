@@ -52,4 +52,6 @@ Route::prefix('users')->middleware('auth')->group(function(){
     Route::post('/store', [UserController::class, 'store'])->name('users.store');
     Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::get('/tbody', [UserController::class, 'tbody'])->name('users.tbody');
+    Route::get('/change-state/{id}/{state}', [UserController::class, 'state'])->name('users.state');
 });

@@ -38,39 +38,8 @@
                                         <th class="text-center">Editar</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($items as $item)
-                                        <tr class="text-center">
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->rol }}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-secondary">
-                                                    <i class="fa-solid fa-user-lock"></i> Actualizar
-                                                </a>
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($item->active)
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox"
-                                                            id="flexSwitchCheckChecked" checked>
-
-                                                    </div>
-                                                @else
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox"
-                                                            id="flexSwitchCheckDefault">
-
-                                                    </div>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{route('users.edit', $item->id)}}" class="btn btn-warning btn-sm">
-                                                    <i class="fa-solid fa-user-pen"></i> Editar
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                <tbody id="tbody-users">
+                                    @include('modules.users.tbody')
                                 </tbody>
                             </table>
                         </div>
@@ -80,3 +49,38 @@
         </section>
     </main>
 @endsection
+
+@push('scripts')
+    <script>
+        function refresh_tbody(){
+            $.ajax({
+                type : "GET",
+                url : "{{ route('users.tbody') }}",
+                success : function(response){
+                    // console.log(response);
+                }
+            });
+        }
+
+        function change_state(id, state){
+            $.ajax({
+                type: "GET",
+                url : "users/change-state/" + id + "/" + state,
+                success: function(response){
+                    if (response == 1){
+                        alert("Se ha actualizado el estado exitosamente");
+                        refresh_tbody();
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function(){
+         $('.form-check-input').on("change", function(){
+           let id = $(this).attr("id");
+           let state = $(this).is(":checked") ? 1 : 0;
+           change_state(id, state)
+         });
+       });
+    </script>
+@endpush
