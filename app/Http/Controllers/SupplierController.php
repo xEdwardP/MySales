@@ -37,9 +37,11 @@ class SupplierController extends Controller
         }
     }
 
-    public function show(Supplier $supplier)
+    public function show(string $id)
     {
-        //
+        $title = "Eliminar Proveedor";
+        $item = Supplier::find($id);
+        return view("modules.suppliers.show", compact('item', 'title'));
     }
 
     public function edit(string $id)
@@ -47,7 +49,7 @@ class SupplierController extends Controller
         $item = Supplier::find($id);
         $title = "Editar Proveedor";
 
-        return view ('modules.suppliers.edit', compact('item', 'title'));
+        return view('modules.suppliers.edit', compact('item', 'title'));
     }
 
     public function update(Request $request, string $id)
@@ -67,11 +69,14 @@ class SupplierController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Supplier $supplier)
+    public function destroy(string $id)
     {
-        //
+        try {
+            $item = Supplier::find($id);
+            $item->delete();
+            return to_route('suppliers')->with('success', 'Proveedor Eliminado con exito!');
+        } catch (\Throwable $th) {
+            return to_route('suppliers')->with('error', 'Fallo al eliminar!!', $th->getMessage());
+        }
     }
 }

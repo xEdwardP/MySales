@@ -51,7 +51,7 @@
                                             <td>
                                                 <a href="{{route("suppliers.edit", $item->id)}}" class="btn btn-warning btn-sm"><i
                                                         class="fa-solid fa-pen-to-square"></i> Editar</a>
-                                                <a href="" class="btn btn-danger btn-sm"><i
+                                                <a href="{{route("suppliers.show", $item->id)}}" class="btn btn-danger btn-sm"><i
                                                         class="fa-solid fa-trash-can"></i> Eliminar</a>
                                             </td>
                                         </tr>

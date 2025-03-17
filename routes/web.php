@@ -49,6 +49,8 @@ Route::prefix('suppliers')->middleware('auth')->group(function(){
     Route::post('/store', [SupplierController::class, 'store'])->name('suppliers.store');
     Route::get('/edit{id}', [SupplierController::class, 'edit'])->name('suppliers.edit');
     Route::put('/update{id}', [SupplierController::class, 'update'])->name('suppliers.update');
+    Route::get('/show{id}', [SupplierController::class, 'show'])->name('suppliers.show');
+    Route::delete('/destroy{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
 });
 
 Route::prefix('products')->middleware('auth')->group(function(){
