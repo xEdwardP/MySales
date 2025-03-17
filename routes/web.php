@@ -45,6 +45,8 @@ Route::prefix('customers')->middleware('auth')->group(function(){
 
 Route::prefix('suppliers')->middleware('auth')->group(function(){
     Route::get('/', [SupplierController::class, 'index'])->name('suppliers');
+    Route::get('/create', [SupplierController::class, 'create'])->name('suppliers.create');
+    Route::post('/store', [SupplierController::class, 'store'])->name('suppliers.store');
 });
 
 Route::prefix('products')->middleware('auth')->group(function(){

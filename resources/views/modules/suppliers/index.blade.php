@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Proveedores Registrados</h5>
                             {{-- <p>Descripcion</p> --}}
-                            <a href="" class="btn btn-primary">
+                            <a href="{{route('suppliers.create')}}" class="btn btn-primary">
                                 <i class="fa-solid fa-circle-plus"></i> Nuevo Proveedor
                             </a>
                             <hr>

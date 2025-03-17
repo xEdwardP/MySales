@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $title = "Proveedores";
@@ -17,20 +14,27 @@ class SupplierController extends Controller
         return view('modules.suppliers.index', compact('title', 'items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $title = "Agregar proveedor";
+        return view('modules.suppliers.create', compact('title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            $item = new Supplier();
+            $item->name = $request->name;
+            $item->phone = $request->phone;
+            $item->email = $request->email;
+            $item->cp = $request->cp;
+            $item->website = $request->website;
+            $item->notes = $request->notes;
+            $item->save();
+            return to_route('suppliers')->with("success", "Proveedor agregado con exito");
+        } catch (\Throwable $th) {
+            return to_route('suppliers')->with("error", "Fallo al agregar proveedor!!!" . $th->getMessage());
+        }
     }
 
     /**
