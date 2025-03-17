@@ -21,6 +21,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">¿Desea eliminar este proveedor?</h5>
+                            <p>
+                                Una vez eliminado el proveedor no podra ser recuperado.
+                            </p>
                             <table class="table">
                                 <thead>
                                     <tr>

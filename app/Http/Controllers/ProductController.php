@@ -12,7 +12,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('modules.products.index');
+        $title = "Productos";
+        return view('modules.products.index', compact('title'));
     }
 
     /**
