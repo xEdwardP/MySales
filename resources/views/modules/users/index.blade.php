@@ -53,56 +53,80 @@
 
 @push('scripts')
     <script>
-        function refresh_tbody(){
+        function refresh_tbody() {
             $.ajax({
-                type : "GET",
-                url : "{{ route('users.tbody') }}",
-                success : function(response){
+                type: "GET",
+                url: "{{ route('users.tbody') }}",
+                success: function(response) {
                     // console.log(response);
                 }
             });
         }
 
-        function change_state(id, state){
+        function change_state(id, state) {
             $.ajax({
                 type: "GET",
-                url : "users/change-state/" + id + "/" + state,
-                success: function(response){
-                    if (response == 1){
-                        alert("Se ha actualizado el estado exitosamente");
+                url: "users/change-state/" + id + "/" + state,
+                success: function(response) {
+                    if (response == 1) {
+                        Swal.fire({
+                            title: 'Exito!',
+                            text: 'Cambio de estado exitoso!',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        });
                         refresh_tbody();
+                    } else {
+                        Swal.fire({
+                            title: 'Fallo!',
+                            text: 'No se llevo a cabo el cambio!',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
                     }
                 }
             });
         }
 
-        function setIdUser(id){
+        function setIdUser(id) {
             $('#user_id').val(id);
         }
 
-        function changePassword(){
+        function changePassword() {
             let id = $('#user_id').val();
             let password = $('#password').val();
 
             $.ajax({
                 type: "GET",
                 url: "users/change-password/" + id + "/" + password,
-                success : function(response){
-                    if (response == 1){
-                        alert("Se ha actualizado la clave correctamente");
+                success: function(response) {
+                    if (response == 1) {
+                        Swal.fire({
+                            title: 'Exito!',
+                            text: 'Cambio de password exitoso!',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        });
                         $('#frmPassword')[0].reset();
+                    } else {
+                        Swal.fire({
+                            title: 'Fallo!',
+                            text: 'Cambio de password no exitoso!',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
                     }
                 }
             });
             return false;
         }
 
-        $(document).ready(function(){
-         $('.form-check-input').on("change", function(){
-           let id = $(this).attr("id");
-           let state = $(this).is(":checked") ? 1 : 0;
-           change_state(id, state)
-         });
-       });
+        $(document).ready(function() {
+            $('.form-check-input').on("change", function() {
+                let id = $(this).attr("id");
+                let state = $(this).is(":checked") ? 1 : 0;
+                change_state(id, state)
+            });
+        });
     </script>
 @endpush

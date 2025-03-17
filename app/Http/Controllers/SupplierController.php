@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $title = "Clientes";
-        return view('modules.customers.index', compact('title'));
+        $title = "Proveedores";
+        $items = Supplier::all();
+        return view('modules.suppliers.index', compact('title', 'items'));
     }
 
     /**
@@ -35,7 +36,7 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show(Supplier $supplier)
     {
         //
     }
@@ -43,7 +44,7 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer)
+    public function edit(Supplier $supplier)
     {
         //
     }
@@ -51,7 +52,7 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Supplier $supplier)
     {
         //
     }
@@ -59,7 +60,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy(Supplier $supplier)
     {
         //
     }

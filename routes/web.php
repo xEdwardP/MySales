@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleDetailController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,10 @@ Route::prefix('categories')->middleware('auth')->group(function(){
 
 Route::prefix('customers')->middleware('auth')->group(function(){
     Route::get('/', [CustomerController::class, 'index'])->name('customers');
+});
+
+Route::prefix('suppliers')->middleware('auth')->group(function(){
+    Route::get('/', [SupplierController::class, 'index'])->name('suppliers');
 });
 
 Route::prefix('products')->middleware('auth')->group(function(){

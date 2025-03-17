@@ -43,6 +43,13 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link collapsed" href="{{route('suppliers')}}">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>Proveedores</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="{{route('products')}}">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span>Productos</span>
