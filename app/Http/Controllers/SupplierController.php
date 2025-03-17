@@ -37,28 +37,34 @@ class SupplierController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Supplier $supplier)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Supplier $supplier)
+    public function edit(string $id)
     {
-        //
+        $item = Supplier::find($id);
+        $title = "Editar Proveedor";
+
+        return view ('modules.suppliers.edit', compact('item', 'title'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request, string $id)
     {
-        //
+        try {
+            $item = Supplier::find($id);
+            $item->name = $request->name;
+            $item->phone = $request->phone;
+            $item->email = $request->email;
+            $item->cp = $request->cp;
+            $item->website = $request->website;
+            $item->notes = $request->notes;
+            $item->save();
+            return to_route('suppliers')->with('success', 'Actualizado con exito');
+        } catch (\Throwable $th) {
+            return to_route('suppliers')->with('error', 'No se pudo actualizar' . $th->getMessage());
+        }
     }
 
     /**

@@ -47,6 +47,8 @@ Route::prefix('suppliers')->middleware('auth')->group(function(){
     Route::get('/', [SupplierController::class, 'index'])->name('suppliers');
     Route::get('/create', [SupplierController::class, 'create'])->name('suppliers.create');
     Route::post('/store', [SupplierController::class, 'store'])->name('suppliers.store');
+    Route::get('/edit{id}', [SupplierController::class, 'edit'])->name('suppliers.edit');
+    Route::put('/update{id}', [SupplierController::class, 'update'])->name('suppliers.update');
 });
 
 Route::prefix('products')->middleware('auth')->group(function(){

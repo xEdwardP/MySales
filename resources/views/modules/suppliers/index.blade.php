@@ -49,7 +49,7 @@
                                             <td>{{ $item->website }}</td>
                                             <td>{{ $item->notes }}</td>
                                             <td>
-                                                <a href="" class="btn btn-warning btn-sm"><i
+                                                <a href="{{route("suppliers.edit", $item->id)}}" class="btn btn-warning btn-sm"><i
                                                         class="fa-solid fa-pen-to-square"></i> Editar</a>
                                                 <a href="" class="btn btn-danger btn-sm"><i
                                                         class="fa-solid fa-trash-can"></i> Eliminar</a>
