@@ -14,12 +14,15 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('description', 150);
-            $table->integer('quantity');
-            $table->decimal('price', 18,2);
-            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('name', 50);
+            $table->string('description', 255)->nullable();
+            $table->integer('quantity')->default(0);
+            $table->decimal('purchase_price', 18,2)->default(0);
+            $table->decimal('selling_price', 18,2)->default(0);
+            $table->boolean('active')->default(true);
+            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('supplier_id')->constrained('suppliers');
             $table->timestamps();
         });
     }
