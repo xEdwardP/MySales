@@ -27,8 +27,9 @@
                             <a href="" class="btn btn-primary">Productos con stock minimo</a>
                             </p>
                             <hr>
-                            <a href="{{route('products.create')}}" class="btn btn-primary">
-                                <i class="fa-solid fa-circle-plus"></i> Nuevo Producto
+                            <a href="{{ route('products.create') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-circle-plus"></i> 
+                                <span class="d-none d-md-inline">Nuevo Producto</span>
                             </a>
                             <hr>
                             <table class="table datatable">
@@ -48,26 +49,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="text-center">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="#" class="btn btn-warning">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-danger">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                    @foreach ($items as $item)
+                                        <tr class="text-center">
+                                            <td>{{ $item->category_name }}</td>
+                                            <td>{{ $item->supplier_name }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>Sin Foto que mostrar</td>
+                                            <td>{{ $item->description }}</td>
+                                            <td>{{ $item->quantity }}</td>
+                                            <td>{{ $item->purchase_price }}</td>
+                                            <td>{{ $item->selling_price }}</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="{{ $item->id }}"
+                                                        {{ $item->active ? 'checked' : '' }}>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn btm-sm btn-info">Comprar</a>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn btm-sm btn-warning">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+                                                <a href="#" class="btn btm-sm btn-danger">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

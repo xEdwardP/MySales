@@ -13,7 +13,16 @@ class ProductController extends Controller
     public function index()
     {
         $title = "Productos";
-        return view('modules.products.index', compact('title'));
+        $items = Product::select(
+            'products.*',
+            'categories.name as category_name',
+            'suppliers.name as supplier_name'
+        )
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->join('suppliers', 'products.supplier_id', '=', 'suppliers.id')
+            ->get();
+
+        return view('modules.products.index', compact('title', 'items'));
     }
 
     public function create()
@@ -26,7 +35,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        try{
+        try {
             $item = new Product();
             $item->user_id = Auth::user()->id;
             $item->category_id = $request->category_id;
@@ -35,7 +44,7 @@ class ProductController extends Controller
             $item->description = $request->description;
             $item->save();
             return to_route('products')->with('success', 'Producto creado exitosamente!');
-        }catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             return to_route('products')->with('error', 'Fallo al crear producto!' . $th->getMessage());
         }
     }
