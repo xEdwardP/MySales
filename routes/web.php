@@ -55,6 +55,12 @@ Route::prefix('suppliers')->middleware('auth')->group(function(){
 
 Route::prefix('products')->middleware('auth')->group(function(){
     Route::get('/', [ProductController::class, 'index'])->name('products');
+    Route::get('/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/store', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/edit{id}', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/update{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::get('/show{id}', [ProductController::class, 'show'])->name('products.show');
+    Route::delete('/destroy{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
 Route::prefix('users')->middleware('auth')->group(function(){

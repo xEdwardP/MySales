@@ -27,7 +27,7 @@
                             <a href="" class="btn btn-primary">Productos con stock minimo</a>
                             </p>
                             <hr>
-                            <a href="" class="btn btn-primary">
+                            <a href="{{route('products.create')}}" class="btn btn-primary">
                                 <i class="fa-solid fa-circle-plus"></i> Nuevo Producto
                             </a>
                             <hr>
