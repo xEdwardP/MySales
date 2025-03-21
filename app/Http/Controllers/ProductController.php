@@ -54,14 +54,29 @@ class ProductController extends Controller
         //
     }
 
-    public function edit(Product $product)
+    public function edit(string $id)
     {
-        //
+        $title = "Editar producto";
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        $item = Product::find($id);
+        return view('modules.products.edit', compact('title', 'item', 'categories', 'suppliers'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, string $id)
     {
-        //
+        try{
+            $item = Product::find($id);
+            $item->category_id = $request->category_id;
+            $item->supplier_id = $request->supplier_id;
+            $item->name = $request->name;
+            $item->description = $request->description;
+            $item->selling_price = $request->selling_price;
+            $item->save();
+            return to_route('products')->with('success', 'Producto actualizado exitosamente!!');
+        }catch (\Throwable $th) {
+            return to_route('products')->with('error', 'Fallo al actualizar producto!' . $th->getMessage());
+        }
     }
 
     public function destroy(Product $product)

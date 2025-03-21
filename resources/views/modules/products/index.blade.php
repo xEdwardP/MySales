@@ -69,7 +69,7 @@
                                                 <a href="#" class="btn btm-sm btn-info">Comprar</a>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btm-sm btn-warning">
+                                                <a href="{{route('products.edit', $item->id)}}" class="btn btm-sm btn-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
                                                 <a href="#" class="btn btm-sm btn-danger">
