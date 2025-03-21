@@ -24,11 +24,8 @@
                             <p>
                                 Admnistrar el stock del sistema.
                             </p>
-                            <a href="" class="btn btn-primary">Productos con stock minimo</a>
-                            </p>
-                            <hr>
                             <a href="{{ route('products.create') }}" class="btn btn-primary">
-                                <i class="fa-solid fa-circle-plus"></i> 
+                                <i class="fa-solid fa-circle-plus"></i>
                                 <span class="d-none d-md-inline">Nuevo Producto</span>
                             </a>
                             <hr>
@@ -69,10 +66,12 @@
                                                 <a href="#" class="btn btm-sm btn-info">Comprar</a>
                                             </td>
                                             <td>
-                                                <a href="{{route('products.edit', $item->id)}}" class="btn btm-sm btn-warning">
+                                                <a href="{{ route('products.edit', $item->id) }}"
+                                                    class="btn btm-sm btn-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="#" class="btn btm-sm btn-danger">
+                                                <a href="{{ route('products.show', $item->id) }}"
+                                                    class="btn btm-sm btn-danger">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </a>
                                             </td>

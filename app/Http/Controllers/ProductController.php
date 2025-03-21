@@ -49,9 +49,19 @@ class ProductController extends Controller
         }
     }
 
-    public function show(Product $product)
+    public function show(string $id)
     {
-        //
+        $title = "Eliminar producto";
+        $items = Product::select(
+            'products.*',
+            'categories.name as category_name',
+            'suppliers.name as supplier_name'
+        )
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->join('suppliers', 'products.supplier_id', '=', 'suppliers.id')
+            ->where('products.id', $id)
+            ->first();
+        return view('modules.products.show', compact('title', 'items'));
     }
 
     public function edit(string $id)
@@ -65,7 +75,7 @@ class ProductController extends Controller
 
     public function update(Request $request, string $id)
     {
-        try{
+        try {
             $item = Product::find($id);
             $item->category_id = $request->category_id;
             $item->supplier_id = $request->supplier_id;
@@ -74,13 +84,19 @@ class ProductController extends Controller
             $item->selling_price = $request->selling_price;
             $item->save();
             return to_route('products')->with('success', 'Producto actualizado exitosamente!!');
-        }catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             return to_route('products')->with('error', 'Fallo al actualizar producto!' . $th->getMessage());
         }
     }
 
-    public function destroy(Product $product)
+    public function destroy(string $id)
     {
-        //
+        try {
+            $item = Product::find($id);
+            $item->delete();
+            return to_route('products')->with('success', 'Producto eliminado exitosamente!!');
+        } catch (\Throwable $th) {
+            return to_route('products')->with('error', 'Fallo al eliminar producto!' . $th->getMessage());
+        }
     }
 }
