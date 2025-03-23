@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductReportController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleDetailController;
 use App\Http\Controllers\SupplierController;
@@ -61,6 +62,11 @@ Route::prefix('products')->middleware('auth')->group(function(){
     Route::put('/update{id}', [ProductController::class, 'update'])->name('products.update');
     Route::get('/show{id}', [ProductController::class, 'show'])->name('products.show');
     Route::delete('/destroy{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/change-state/{id}/{state}', [ProductController::class, 'state'])->name('products.state');
+});
+
+Route::prefix('products_report')->middleware('auth')->group(function(){
+    Route::get('/', [ProductReportController::class, 'index'])->name('products_report');
 });
 
 Route::prefix('users')->middleware('auth')->group(function(){

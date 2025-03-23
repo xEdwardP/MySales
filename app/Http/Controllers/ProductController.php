@@ -99,4 +99,11 @@ class ProductController extends Controller
             return to_route('products')->with('error', 'Fallo al eliminar producto!' . $th->getMessage());
         }
     }
+
+    public function state($id, $state)
+    {
+        $item = Product::find($id);
+        $item->active = $state;
+        return $item->save();
+    }
 }

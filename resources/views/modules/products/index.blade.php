@@ -86,3 +86,40 @@
         </section>
     </main>
 @endsection
+
+@push('scripts')
+    <script>
+        function change_state(id, state) {
+            $.ajax({
+                type: "GET",
+                url: "products/change-state/" + id + "/" + state,
+                success: function(response) {
+                    if (response == 1) {
+                        Swal.fire({
+                            title: 'Exito!',
+                            text: 'Cambio de estado exitoso!',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        
+                    } else {
+                        Swal.fire({
+                            title: 'Fallo!',
+                            text: 'No se llevo a cabo el cambio!',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $('.form-check-input').on("change", function() {
+                let id = $(this).attr("id");
+                let state = $(this).is(":checked") ? 1 : 0;
+                change_state(id, state)
+            });
+        });
+    </script>
+@endpush

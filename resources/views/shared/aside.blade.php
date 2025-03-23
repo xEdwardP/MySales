@@ -16,12 +16,12 @@
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="{{route('new-sale')}}">
+                        <a href="{{ route('new-sale') }}">
                             <i class="bi bi-circle"></i><span>Vender Productos</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('sale-details')}}">
+                        <a href="{{ route('sale-details') }}">
                             <i class="bi bi-circle"></i><span>Consultar Ventas</span>
                         </a>
                     </li>
@@ -29,21 +29,28 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('categories')}}">
+                <a class="nav-link collapsed" href="{{ route('categories') }}">
                     <i class="fa-solid fa-list"></i>
                     <span>Categorias</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('customers')}}">
+                <a class="nav-link collapsed" href="{{ route('customers') }}">
                     <i class="fa-solid fa-users"></i>
                     <span>Clientes</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('suppliers')}}">
+                <a class="nav-link collapsed" href="#">
+                    <i class="bi bi-dash-circle"></i>
+                    <span>Compras</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('suppliers') }}">
                     <i class="fa-solid fa-truck"></i>
                     <span>Proveedores</span>
                 </a>
@@ -61,7 +68,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route('products_report') }}">
                             <i class="bi bi-circle"></i><span>Reportes de productos</span>
                         </a>
                     </li>
@@ -70,7 +77,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('users')}}">
+                <a class="nav-link collapsed" href="{{ route('users') }}">
                     <i class="fa-solid fa-circle-user"></i>
                     <span>Usuarios</span>
                 </a>
