@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductReportController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleDetailController;
 use App\Http\Controllers\SupplierController;
@@ -78,4 +79,10 @@ Route::prefix('users')->middleware('auth')->group(function(){
     Route::get('/tbody', [UserController::class, 'tbody'])->name('users.tbody');
     Route::get('/change-state/{id}/{state}', [UserController::class, 'state'])->name('users.state');
     Route::get('/change-password/{id}/{password}', [UserController::class, 'changePassword'])->name('users.password');
+});
+
+Route::prefix('purchases')->middleware('auth')->group(function(){
+    Route::get('/', [PurchaseController::class, 'index'])->name('purchases');
+    Route::get('/create/{id_product}', [PurchaseController::class, 'create'])->name('purchases.create');
+    Route::post('/store', [PurchaseController::class, 'store'])->name('purchases.store');
 });
