@@ -11,7 +11,17 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        //
+        $title = "Compras";
+        $items = Purchase::select(
+            'purchases.*',
+            'users.name as user_name',
+            'products.name as product_name'
+        )
+            ->join('users', 'purchases.user_id', '=', 'users.id')
+            ->join('products', 'purchases.product_id', '=' , 'products.id')
+            ->get();
+
+            return view('modules.purchases.index', compact('title', 'items'));
     }
 
     public function create($id)

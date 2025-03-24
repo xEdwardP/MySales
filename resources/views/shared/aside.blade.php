@@ -43,8 +43,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="bi bi-dash-circle"></i>
+                <a class="nav-link collapsed" href="{{ route('purchases') }}">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
                     <span>Compras</span>
                 </a>
             </li>
