@@ -85,4 +85,8 @@ Route::prefix('purchases')->middleware('auth')->group(function(){
     Route::get('/', [PurchaseController::class, 'index'])->name('purchases');
     Route::get('/create/{id_product}', [PurchaseController::class, 'create'])->name('purchases.create');
     Route::post('/store', [PurchaseController::class, 'store'])->name('purchases.store');
+    Route::get('/edit/{id}', [PurchaseController::class, 'edit'])->name('purchases.edit');
+    Route::put('/update/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
+    Route::get('/show/{id}', [PurchaseController::class, 'show'])->name('purchases.show');
+    Route::delete('/destroy/{id}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
 });
