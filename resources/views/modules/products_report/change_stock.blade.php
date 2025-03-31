@@ -6,7 +6,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Productos</h1>
+            <h1>Reporte de Productos con cantidad 1 o 0</h1>
             {{-- <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
@@ -20,14 +20,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Administar Productos y Stock</h5>
-                            <p>
-                                Admnistrar el stock del sistema.
-                            </p>
-                            <a href="{{ route('products.create') }}" class="btn btn-primary">
-                                <i class="fa-solid fa-circle-plus"></i>
-                                <span class="d-none d-md-inline">Nuevo Producto</span>
-                            </a>
+                            <h5 class="card-title">Reporte de Productos con cantidad 1 o 0</h5>
                             <hr>
                             <table class="table datatable">
                                 <thead>
@@ -40,9 +33,6 @@
                                         <th class="text-center">Cantidad</th>
                                         <th class="text-center">Venta</th>
                                         <th class="text-center">Compra</th>
-                                        <th class="text-center">Activo</th>
-                                        <th class="text-center">Comprar</th>
-                                        <th class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,7 +41,7 @@
                                             <td>{{ $item->category_name }}</td>
                                             <td>{{ $item->supplier_name }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>
+                                            <td class="text-center">
                                                 @if ($item->imagen_product)
                                                 <img src="{{ asset('storage/' . $item->imagen_product) }}" alt="" width="60px" height="60px">
                                                 <a href="{{ route('products.show.image', $item->imagen_id) }}" 
@@ -70,27 +60,8 @@
                                             </td>
                                             <td>{{ $item->description }}</td>
                                             <td class="text-center">{{ $item->quantity }}</td>
-                                            <td class="text-center">L {{ $item->selling_price }}</td>
                                             <td class="text-center">L {{ $item->purchase_price }}</td>
-                                            <td>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="{{ $item->id }}"
-                                                        {{ $item->active ? 'checked' : '' }}>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="{{route('purchases.create', $item->id)}}" class="btn btm-sm btn-info">Comprar</a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('products.edit', $item->id) }}"
-                                                    class="btn btm-sm btn-warning">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </a>
-                                                <a href="{{ route('products.show', $item->id) }}"
-                                                    class="btn btm-sm btn-danger">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </a>
-                                            </td>
+                                            <td class="text-center">L {{ $item->selling_price }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -102,40 +73,3 @@
         </section>
     </main>
 @endsection
-
-@push('scripts')
-    <script>
-        function change_state(id, state) {
-            $.ajax({
-                type: "GET",
-                url: "products/change-state/" + id + "/" + state,
-                success: function(response) {
-                    if (response == 1) {
-                        Swal.fire({
-                            title: 'Exito!',
-                            text: 'Cambio de estado exitoso!',
-                            icon: 'success',
-                            confirmButtonText: 'Aceptar'
-                        });
-                        
-                    } else {
-                        Swal.fire({
-                            title: 'Fallo!',
-                            text: 'No se llevo a cabo el cambio!',
-                            icon: 'error',
-                            confirmButtonText: 'Aceptar'
-                        });
-                    }
-                }
-            });
-        }
-
-        $(document).ready(function() {
-            $('.form-check-input').on("change", function() {
-                let id = $(this).attr("id");
-                let state = $(this).is(":checked") ? 1 : 0;
-                change_state(id, state)
-            });
-        });
-    </script>
-@endpush

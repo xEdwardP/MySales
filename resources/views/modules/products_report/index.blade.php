@@ -20,10 +20,18 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Productos</h5>
+                            <h5 class="card-title">Administrar Reportes De Productos</h5>
                             <p>
-                                Imprimir reporte de productos registrados.
+                                Tipos de reportes del sistema para productos.
                             </p>
+                            <div class="row">
+                                <div class="col text-end">
+                                    <a href="{{route('products_report.change_stock')}}" class="btn btn-primary btn-sm">
+                                        Productos con cantidad 1 o 0
+                                    </a>
+                                </div>
+                            </div>
+                            <hr>
                             <table class="table datatable">
                                 <thead>
                                     <tr>
@@ -43,11 +51,27 @@
                                             <td>{{ $item->category_name }}</td>
                                             <td>{{ $item->supplier_name }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>Sin Foto que mostrar</td>
+                                            <td class="text-center">
+                                                @if ($item->imagen_product)
+                                                <img src="{{ asset('storage/' . $item->imagen_product) }}" alt="" width="60px" height="60px">
+                                                <a href="{{ route('products.show.image', $item->imagen_id) }}" 
+                                                    class="badge rounded-pill bg-warning text-dark">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                  </a>
+                                                @else
+                                                    <span class="text-muted">Sin Imagen</span>
+                                                    {{-- Pendiente de corregir --}}
+                                                    {{-- <a href="" 
+                                                        class="badge rounded-pill bg-warning text-dark py-2 px-1">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                        Agregar imagen
+                                                      </a> --}}
+                                                @endif
+                                            </td>
                                             <td>{{ $item->description }}</td>
-                                            <td>{{ $item->quantity }}</td>
-                                            <td>{{ $item->purchase_price }}</td>
-                                            <td>{{ $item->selling_price }}</td>
+                                            <td class="text-center">{{ $item->quantity }}</td>
+                                            <td class="text-center">L {{ $item->purchase_price }}</td>
+                                            <td class="text-center">L {{ $item->selling_price }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

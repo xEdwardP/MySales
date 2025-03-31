@@ -70,6 +70,7 @@ Route::prefix('products')->middleware('auth')->group(function(){
 
 Route::prefix('products_report')->middleware('auth')->group(function(){
     Route::get('/', [ProductReportController::class, 'index'])->name('products_report');
+    Route::get('/change-stock', [ProductReportController::class, 'changeStock'])->name('products_report.change_stock');
 });
 
 Route::prefix('users')->middleware('auth')->group(function(){
