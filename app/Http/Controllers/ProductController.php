@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Imagen;
 use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
@@ -16,10 +17,12 @@ class ProductController extends Controller
         $items = Product::select(
             'products.*',
             'categories.name as category_name',
-            'suppliers.name as supplier_name'
+            'suppliers.name as supplier_name',
+            'imagenes.path as imagen_product'
         )
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->join('suppliers', 'products.supplier_id', '=', 'suppliers.id')
+            ->leftjoin('imagenes', 'products.id', '=', 'imagenes.product_id')
             ->get();
 
         return view('modules.products.index', compact('title', 'items'));
@@ -43,7 +46,16 @@ class ProductController extends Controller
             $item->name = $request->name;
             $item->description = $request->description;
             $item->save();
-            return to_route('products')->with('success', 'Producto creado exitosamente!');
+            
+            $idproduct = $item->id;
+
+            if($idproduct > 0){
+                if($this->uploadImage($request, $idproduct)){
+                    return to_route('products')->with('success', 'Producto creado exitosamente!');
+                } else{
+                    return to_route('products')->with('error', 'No se subio la imagen!!');
+                }
+            }
         } catch (\Throwable $th) {
             return to_route('products')->with('error', 'Fallo al crear producto!' . $th->getMessage());
         }
@@ -104,6 +116,17 @@ class ProductController extends Controller
     {
         $item = Product::find($id);
         $item->active = $state;
+        return $item->save();
+    }
+
+    public function uploadImage($request, $idproduct){
+        $pathImage = $request->file('imagen')->store('imagenes', 'public');
+        $nameImage = basename($pathImage);
+
+        $item = new Imagen();
+        $item->product_id = $idproduct;
+        $item->name = $nameImage;
+        $item->path = $pathImage;
         return $item->save();
     }
 }

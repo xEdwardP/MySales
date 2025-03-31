@@ -51,7 +51,13 @@
                                             <td>{{ $item->category_name }}</td>
                                             <td>{{ $item->supplier_name }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>Sin Foto que mostrar</td>
+                                            <td>
+                                                @if ($item->imagen_product)
+                                                <img src="{{ asset('storage/' . $item->imagen_product) }}" alt="" width="60px" height="60px">
+                                                @else
+                                                    <span class="text-muted">Sin Imagen</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $item->description }}</td>
                                             <td>{{ $item->quantity }}</td>
                                             <td>{{ $item->selling_price }}</td>
