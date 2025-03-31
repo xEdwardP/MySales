@@ -54,8 +54,18 @@
                                             <td>
                                                 @if ($item->imagen_product)
                                                 <img src="{{ asset('storage/' . $item->imagen_product) }}" alt="" width="60px" height="60px">
+                                                <a href="{{ route('products.show.image', $item->imagen_id) }}" 
+                                                    class="badge rounded-pill bg-warning text-dark">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                  </a>
                                                 @else
                                                     <span class="text-muted">Sin Imagen</span>
+                                                    {{-- Pendiente de corregir --}}
+                                                    {{-- <a href="" 
+                                                        class="badge rounded-pill bg-warning text-dark py-2 px-1">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                        Agregar imagen
+                                                      </a> --}}
                                                 @endif
                                             </td>
                                             <td>{{ $item->description }}</td>

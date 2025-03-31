@@ -64,6 +64,8 @@ Route::prefix('products')->middleware('auth')->group(function(){
     Route::get('/show{id}', [ProductController::class, 'show'])->name('products.show');
     Route::delete('/destroy{id}', [ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('/change-state/{id}/{state}', [ProductController::class, 'state'])->name('products.state');
+    Route::get('/show-image/{id}', [ProductController::class, 'show_image'])->name('products.show.image');
+    Route::put('/update-image/{id}', [ProductController::class, 'update_image'])->name('products.update.image');
 });
 
 Route::prefix('products_report')->middleware('auth')->group(function(){

@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -18,7 +19,8 @@ class ProductController extends Controller
             'products.*',
             'categories.name as category_name',
             'suppliers.name as supplier_name',
-            'imagenes.path as imagen_product'
+            'imagenes.path as imagen_product',
+            'imagenes.id as imagen_id' 
         )
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->join('suppliers', 'products.supplier_id', '=', 'suppliers.id')
@@ -128,5 +130,31 @@ class ProductController extends Controller
         $item->name = $nameImage;
         $item->path = $pathImage;
         return $item->save();
+    }
+
+    public function show_image($id) {
+        $title = 'Editar imagen';
+        $item = Imagen::find($id);
+        return view('modules.products.show-image', compact('title', 'item'));
+    }
+
+    public function update_image(Request $request, $id){
+        try {
+            $item = Imagen::find($id);
+
+            if($item->path && Storage::disk('public')->exists($item->path)){
+                Storage::disk('public')->delete($item->path);
+            }
+            
+            $pathImagen = $request->file('imagen')->store('imagenes', 'public');
+            
+            $nameImage = basename($pathImagen);
+            $item->path = $pathImagen;
+            $item->name = $nameImage;
+            $item->save();
+            return to_route('products')->with('success', 'Imagen Actualizada exitosamente!!');
+        } catch (\Throwable $th) {
+            return to_route('products')->with('error', 'No se pudo actualizar la imagen!!');
+        }
     }
 }
