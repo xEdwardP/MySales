@@ -36,9 +36,9 @@
                   </thead>
                   <tbody>
                     @foreach ($items as $item)
-                    <tr class="text-center">
+                    <tr>
                         <td>{{$item->name}}</td>
-                        <td>
+                        <td class="text-center">
                             <a href="{{route("categories.edit", $item->id)}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
                             <a href="{{route("categories.show", $item->id)}}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i> Eliminar</a>
                         </td>

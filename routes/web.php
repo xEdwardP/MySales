@@ -24,7 +24,9 @@ Route::middleware("auth")->group(function(){
 // Route::get('/crear-admin', [AuthController::class, 'createAdmin']);
 
 Route::prefix('sales')->middleware('auth')->group(function(){
-    Route::get('/nueva-venta', [SaleController::class, 'index'])->name('new-sale');
+    Route::get('/new-sale', [SaleController::class, 'index'])->name('new-sale');
+    Route::get('/add-cart/{id_product}', [SaleController::class, 'addCart'])->name('sales.add.cart');
+     Route::get('/delete-cart', [SaleController::class, 'deleteCart'])->name('sales.delete.cart');
 });
 
 Route::prefix('salesdetails')->middleware('auth')->group(function(){

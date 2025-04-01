@@ -45,6 +45,7 @@ class ProductController extends Controller
             $item->user_id = Auth::user()->id;
             $item->category_id = $request->category_id;
             $item->supplier_id = $request->supplier_id;
+            $item->code = $request->code;
             $item->name = $request->name;
             $item->description = $request->description;
             $item->save();
@@ -93,6 +94,7 @@ class ProductController extends Controller
             $item = Product::find($id);
             $item->category_id = $request->category_id;
             $item->supplier_id = $request->supplier_id;
+            $item->code = $request->code;
             $item->name = $request->name;
             $item->description = $request->description;
             $item->selling_price = $request->selling_price;

@@ -2,64 +2,92 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SaleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('modules.sales.index');
+        $title = "Ventas";
+        $items = Product::all();
+        return view('modules.sales.index', compact('title', 'items'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Sale $sale)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Sale $sale)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Sale $sale)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Sale $sale)
     {
         //
+    }
+
+    public function addCart($idproduct)
+    {
+        $item = Product::find($idproduct);
+        $stock = $item->quantity;
+
+        $cartItems = Session::get('cartItems', []);
+
+        $response = false;
+
+        foreach ($cartItems as $key=>$cart) {
+            if ($cart['id'] == $idproduct) {
+                if ($cart['quantity'] >= $stock) {
+                    return to_route('new-sale')->with('error', 'No hay stock suficiente!!!');
+                }
+                $cartItems[$key]['quantity'] += 1;
+                $response = true;
+                break;
+            }
+        }
+
+        //agregar el nuevo producto
+        if (!$response) {
+            $cartItems[] = [
+                'id' => $item->id,
+                'code' => $item->code,
+                'name' => $item->name,
+                'quantity' => 1,
+                'price' => $item->selling_price
+            ];
+        }
+
+        //realmente creamos una sesion
+        Session::put('cartItems', $cartItems);
+
+
+        return to_route('new-sale');
+    }
+
+    public function deleteCart(){
+        Session::forget('cartItems');
+        $title = "Ventas";
+        $items = Product::all();
+        return view('modules.sales.index', compact('title', 'items'));
     }
 }

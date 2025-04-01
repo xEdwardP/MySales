@@ -34,6 +34,7 @@
                                     <tr>
                                         <th class="text-center">Categoria</th>
                                         <th class="text-center">Proveedor</th>
+                                        <th class="text-center">Codigo</th>
                                         <th class="text-center">Nombre</th>
                                         <th class="text-center">Imagen</th>
                                         <th class="text-center">Descripcion</th>
@@ -50,6 +51,7 @@
                                         <tr class="text-center">
                                             <td>{{ $item->category_name }}</td>
                                             <td>{{ $item->supplier_name }}</td>
+                                            <td>{{ $item->code }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>
                                                 @if ($item->imagen_product)

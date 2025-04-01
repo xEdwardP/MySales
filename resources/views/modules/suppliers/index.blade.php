@@ -43,9 +43,9 @@
                                     @foreach ($items as $item)
                                         <tr class="text-center">
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->phone }}</td>
+                                            <td class="text-center">{{ $item->phone }}</td>
                                             <td>{{ $item->email }}</td>
-                                            <td>{{ $item->cp }}</td>
+                                            <td class="text-center">{{ $item->cp }}</td>
                                             <td>{{ $item->website }}</td>
                                             <td>{{ $item->notes }}</td>
                                             <td>
