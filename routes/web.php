@@ -26,7 +26,8 @@ Route::middleware("auth")->group(function(){
 Route::prefix('sales')->middleware('auth')->group(function(){
     Route::get('/new-sale', [SaleController::class, 'index'])->name('new-sale');
     Route::get('/add-cart/{id_product}', [SaleController::class, 'addCart'])->name('sales.add.cart');
-     Route::get('/delete-cart', [SaleController::class, 'deleteCart'])->name('sales.delete.cart');
+    Route::get('/delete-cart', [SaleController::class, 'deleteCart'])->name('sales.delete.cart');
+    Route::get('/remove-cart/{id_product}', [SaleController::class, 'removeCart'])->name('sales.remove.cart');
 });
 
 Route::prefix('salesdetails')->middleware('auth')->group(function(){

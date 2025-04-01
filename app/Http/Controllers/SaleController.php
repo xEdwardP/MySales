@@ -16,36 +16,6 @@ class SaleController extends Controller
         return view('modules.sales.index', compact('title', 'items'));
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show(Sale $sale)
-    {
-        //
-    }
-
-    public function edit(Sale $sale)
-    {
-        //
-    }
-
-    public function update(Request $request, Sale $sale)
-    {
-        //
-    }
-
-    public function destroy(Sale $sale)
-    {
-        //
-    }
-
     public function addCart($idproduct)
     {
         $item = Product::find($idproduct);
@@ -55,7 +25,7 @@ class SaleController extends Controller
 
         $response = false;
 
-        foreach ($cartItems as $key=>$cart) {
+        foreach ($cartItems as $key => $cart) {
             if ($cart['id'] == $idproduct) {
                 if ($cart['quantity'] >= $stock) {
                     return to_route('new-sale')->with('error', 'No hay stock suficiente!!!');
@@ -66,7 +36,6 @@ class SaleController extends Controller
             }
         }
 
-        //agregar el nuevo producto
         if (!$response) {
             $cartItems[] = [
                 'id' => $item->id,
@@ -77,17 +46,33 @@ class SaleController extends Controller
             ];
         }
 
-        //realmente creamos una sesion
         Session::put('cartItems', $cartItems);
 
 
         return to_route('new-sale');
     }
 
-    public function deleteCart(){
+    public function deleteCart()
+    {
         Session::forget('cartItems');
-        $title = "Ventas";
-        $items = Product::all();
-        return view('modules.sales.index', compact('title', 'items'));
+        return to_route('new-sale');
+    }
+
+
+    public function removeCart($idproduct)
+    {
+        $cartItems = Session::get('cartItems', []);
+        foreach ($cartItems as $key => $cart) {
+            if ($cart['id'] == $idproduct) {
+                if ($cart['quantity'] > 1) {
+                    $cartItems[$key]['quantity'] -= 1;
+                } else {
+                    unset($cartItems[$key]);
+                }
+                break;
+            }
+        }
+        Session::put('cartItems', $cartItems);
+        return to_route('new-sale');
     }
 }

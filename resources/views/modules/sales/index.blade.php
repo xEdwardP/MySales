@@ -71,21 +71,40 @@
                                         <th class="text-center">Nombre</th>
                                         <th class="text-center">Cantida</th>
                                         <th class="text-center">Precio</th>
+                                        <th class="text-center">Quitar</th>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $total = 0;
+                                        @endphp
+
                                         @foreach (session('cartItems') as $item)
+                                            @php
+                                                $totalProducts = $item['quantity'] * $item['price'];
+                                                $total += $totalProducts;
+                                            @endphp
                                             <tr>
                                                 <td class="text-center">{{ $item['code'] }}</td>
                                                 <td class="text-center">{{ $item['name'] }}</td>
                                                 <td class="text-center">{{ $item['quantity'] }}</td>
                                                 <td class="text-center">L {{ $item['price'] }}</td>
-
+                                                <th class="text-center">
+                                                    <a href="{{ route('sales.remove.cart', $item['id']) }}"
+                                                        class="btn btn-danger btn-sm">Quitar</a>
+                                                </th>
                                             </tr>
                                         @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="text-center">Total General</td>
+                                            <td class="text-center bg-secondary text-white"><strong>L {{ $total }}</strong></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                                 <hr>
-                                <a href="#" class="btn btn-primary">Realizar compra</a>
+                                <a href="#" class="btn btn-primary">Realizar venta</a>
                                 <a href="{{ route('sales.delete.cart') }}" class="btn btn-danger">Borrar carrito</a>
                             @else
                                 <p>No tengo contenido</p>
@@ -103,7 +122,27 @@
     <script>
         $(document).ready(function() {
             $('#cartProducts').DataTable({
-                "pageLength": 2
+                "pageLength": 2,
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
             });
         })
     </script>
