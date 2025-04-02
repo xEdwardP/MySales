@@ -1,18 +1,52 @@
 @extends('layouts.main')
 
-<main id="main" class="main">
+@section('title', $title)
 
-    <div class="pagetitle">
-        <h1>Detalles de Venta</h1>
-        {{-- <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item active">Ventas</li>
-            </ol>
-        </nav> --}}
-    </div>
+@section('content')
+    <main id="main" class="main">
 
-    <section class="section dashboard">
-    </section>
+        <div class="pagetitle">
+            <h1>Consulta de ventas hecha</h1>
+        </div>
 
-</main>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Revisar Ventas Existentes</h5>
+                            <hr>
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Total Vendido</th>
+                                        <th class="text-center">Fecha Venta</th>
+                                        <th class="text-center">Usuario</th>
+                                        <th class="text-center">Ver Detalle</th>
+                                        <th class="text-center">Revocar Venta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($items as $item)
+                                        <tr class="text-center">
+                                            <td class="text-center">L {{ $item->total }}</td>
+                                            <td class="text-center">{{ $item->created_at }}</td>
+                                            <td class="text-center">{{ $item->user_name }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('detail.view.detail', $item->id) }}"
+                                                    class="btn btn-info">Detalle</a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="#" class="btn btn-danger">Revocar Venta</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+@endsection

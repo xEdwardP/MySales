@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             // $table->foreignId('customer_id')->nullable()->constrained('customers')->nullOnDelete();
-            $table->foreignId('product_id')->constrained('products');
-            $table->integer('quantity');
-            $table->decimal('purchase_price', 18,2);
+            $table->decimal('total', 18,2);
             $table->timestamps();
         });
     }

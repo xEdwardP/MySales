@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\SaleDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class SaleController extends Controller
@@ -74,5 +77,53 @@ class SaleController extends Controller
         }
         Session::put('cartItems', $cartItems);
         return to_route('new-sale');
+    }
+
+    public function makeSale()
+    {
+        $cartItems = Session::get('cartItems', []);
+
+        if (empty($cartItems)) {
+            return to_route('new-sale')->with('error', 'El carrito esta vacio!');
+        }
+
+        DB::beginTransaction();
+        try {
+            $total = 0;
+
+            foreach($cartItems as $item){
+                $total += $item['quantity'] * $item['price'];
+            }
+
+            $sale = new Sale();
+            $sale->user_id = Auth::id();
+            $sale->total = $total;
+            $sale->save();
+
+            foreach($cartItems as $item){
+                $product = Product::find($item['id']);
+                if ($product->quantity < $item['quantity']){
+                    DB::rollback();
+                    return to_route('new-sale')->with('error', 'No hay stock suficiente para ' . $product->name);
+                }
+                
+                $detail = new SaleDetail();
+                $detail->sale_id = $sale->id;
+                $detail->product_id = $item['id'];
+                $detail->quantity = $item['quantity'];
+                $detail->unit_price = $item['price'];
+                $detail->subtotal = $item['quantity'] * $item['price'];
+                $detail->save();
+
+                $product->quantity -= $item['quantity'];
+                $product->save();
+            }
+            Session::forget('cartItems');
+            DB::commit();
+            return to_route('new-sale')->with('success', 'Venta realizada con exito!!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return to_route('new-sale')->with('error', 'Error al procesar la venta!!' . $th->getMessage());
+        }
     }
 }

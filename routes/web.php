@@ -21,17 +21,19 @@ Route::middleware("auth")->group(function(){
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// Route::get('/crear-admin', [AuthController::class, 'createAdmin']);
+Route::get('/crear-admin', [AuthController::class, 'createAdmin']);
 
 Route::prefix('sales')->middleware('auth')->group(function(){
     Route::get('/new-sale', [SaleController::class, 'index'])->name('new-sale');
     Route::get('/add-cart/{id_product}', [SaleController::class, 'addCart'])->name('sales.add.cart');
     Route::get('/delete-cart', [SaleController::class, 'deleteCart'])->name('sales.delete.cart');
     Route::get('/remove-cart/{id_product}', [SaleController::class, 'removeCart'])->name('sales.remove.cart');
+    Route::post('/make-sale', [SaleController::class, 'makeSale'])->name('sales.make.sale');
 });
 
 Route::prefix('salesdetails')->middleware('auth')->group(function(){
     Route::get('/detalle-venta', [SaleDetailController::class, 'index'])->name('sale-details');
+    Route::get('/view_details/{id_sale}', [SaleDetailController::class, 'view_details'])->name('detail.view.detail');
 });
 
 Route::prefix('categories')->middleware('auth')->group(function(){

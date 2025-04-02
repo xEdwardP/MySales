@@ -63,7 +63,6 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Carrito de compras</h5>
-
                             @if (session('cartItems'))
                                 <table class="table table-sm">
                                     <thead>
@@ -98,14 +97,27 @@
                                     <tfoot>
                                         <tr>
                                             <td class="text-center">Total General</td>
-                                            <td class="text-center bg-secondary text-white"><strong>L {{ $total }}</strong></td>
+                                            <td class="text-center bg-secondary text-white"><strong>L
+                                                    {{ $total }}</strong></td>
                                             <td></td>
                                         </tr>
                                     </tfoot>
                                 </table>
                                 <hr>
-                                <a href="#" class="btn btn-primary">Realizar venta</a>
-                                <a href="{{ route('sales.delete.cart') }}" class="btn btn-danger">Borrar carrito</a>
+                                {{-- <a href="#" class="btn btn-primary">Realizar venta</a>
+                                <a href="{{ route('sales.delete.cart') }}" class="btn btn-danger">Borrar carrito</a> --}}
+                                <div class="row">
+                                    <div class="col">
+                                        <form action="{{ route('sales.make.sale') }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-primary">Realizar Venta</button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <a href="{{ route('sales.delete.cart') }}" class="btn btn-danger">Borrar
+                                            carrito</a>
+                                    </div>
+                                </div>
                             @else
                                 <p>No tengo contenido</p>
                             @endif
