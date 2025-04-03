@@ -38,7 +38,7 @@
                                                     class="btn btn-info">Detalle</a>
                                             </td>
                                             <td>
-                                                {{-- <a target="_blank" href="{{ route('detail.ticket', $item->id) }}" class="btn btn-success">Imprimir</a> --}}
+                                                <a target="_blank" href="{{ route('detail.ticket', $item->id) }}" class="btn btn-success">Imprimir</a>
                                             </td>
                                             <td class="text-center">
                                                 <form action="{{ route('detail.revoke', $item->id) }}" method="POST"

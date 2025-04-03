@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleDetail;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -81,7 +82,7 @@ class SaleDetailController extends Controller
         ->where('sales.id', $id)
         ->firstOrFail();
 
-        $detalles = SaleDetail::select(
+        $details = SaleDetail::select(
             'sale_details.*',
             'products.name as product_name'
         )
@@ -90,8 +91,8 @@ class SaleDetailController extends Controller
         ->get();
 
         //genrara el pdf
-        // $pdf = Pdf::loadView("modules.detalles_ventas.ticket", compact('venta','detalles'));
+        $pdf = Pdf::loadView("modules.sales_details.ticket", compact('sale','details'));
         //descargar el pdf
-        // return $pdf->stream("ticket_compra_{$sale->id}.pdf");
+        return $pdf->stream("ticket_compra_{$sale->id}.pdf");
     }
 }
