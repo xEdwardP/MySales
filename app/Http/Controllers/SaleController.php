@@ -120,10 +120,10 @@ class SaleController extends Controller
             }
             Session::forget('cartItems');
             DB::commit();
-            return to_route('new-sale')->with('success', 'Venta realizada con exito!!');
+            return to_route('new-sale')->with('success', 'Venta realizada con exito!');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return to_route('new-sale')->with('error', 'Error al procesar la venta!!' . $th->getMessage());
+            return to_route('new-sale')->with('error', 'Error al procesar la venta!' . $th->getMessage());
         }
     }
 }

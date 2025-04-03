@@ -32,8 +32,10 @@ Route::prefix('sales')->middleware('auth')->group(function(){
 });
 
 Route::prefix('salesdetails')->middleware('auth')->group(function(){
-    Route::get('/detalle-venta', [SaleDetailController::class, 'index'])->name('sale-details');
+    Route::get('/sale-detail', [SaleDetailController::class, 'index'])->name('sale-details');
     Route::get('/view_details/{id_sale}', [SaleDetailController::class, 'view_details'])->name('detail.view.detail');
+    Route::delete('/revoke/{id_sale}', [SaleDetailController::class, 'revokeSale'])->name('detail.revoke');
+    Route::get('/ticket/{id_sale}', [SaleDetailController::class, 'createTicket'])->name('detail.ticket');
 });
 
 Route::prefix('categories')->middleware('auth')->group(function(){

@@ -23,6 +23,7 @@
                                         <th class="text-center">Fecha Venta</th>
                                         <th class="text-center">Usuario</th>
                                         <th class="text-center">Ver Detalle</th>
+                                        <th class="text-center">Imprimir Ticket</th>
                                         <th class="text-center">Revocar Venta</th>
                                     </tr>
                                 </thead>
@@ -36,8 +37,16 @@
                                                 <a href="{{ route('detail.view.detail', $item->id) }}"
                                                     class="btn btn-info">Detalle</a>
                                             </td>
+                                            <td>
+                                                {{-- <a target="_blank" href="{{ route('detail.ticket', $item->id) }}" class="btn btn-success">Imprimir</a> --}}
+                                            </td>
                                             <td class="text-center">
-                                                <a href="#" class="btn btn-danger">Revocar Venta</a>
+                                                <form action="{{ route('detail.revoke', $item->id) }}" method="POST"
+                                                    onsubmit="return confirm('¿Esta seguro de revocar la venta?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger">Revocar</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
