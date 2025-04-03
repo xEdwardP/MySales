@@ -21,7 +21,7 @@ Route::middleware("auth")->group(function(){
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::get('/crear-admin', [AuthController::class, 'createAdmin']);
+// Route::get('/crear-admin', [AuthController::class, 'createAdmin']);
 
 Route::prefix('sales')->middleware('auth')->group(function(){
     Route::get('/new-sale', [SaleController::class, 'index'])->name('new-sale');
@@ -38,7 +38,7 @@ Route::prefix('salesdetails')->middleware('auth')->group(function(){
     Route::get('/ticket/{id_sale}', [SaleDetailController::class, 'createTicket'])->name('detail.ticket');
 });
 
-Route::prefix('categories')->middleware('auth')->group(function(){
+Route::prefix('categories')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
     Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
@@ -48,11 +48,11 @@ Route::prefix('categories')->middleware('auth')->group(function(){
     Route::put('/update{id}', [CategoryController::class, 'update'])->name('categories.update');
 });
 
-Route::prefix('customers')->middleware('auth')->group(function(){
+Route::prefix('customers')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [CustomerController::class, 'index'])->name('customers');
 });
 
-Route::prefix('suppliers')->middleware('auth')->group(function(){
+Route::prefix('suppliers')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [SupplierController::class, 'index'])->name('suppliers');
     Route::get('/create', [SupplierController::class, 'create'])->name('suppliers.create');
     Route::post('/store', [SupplierController::class, 'store'])->name('suppliers.store');
@@ -62,7 +62,7 @@ Route::prefix('suppliers')->middleware('auth')->group(function(){
     Route::delete('/destroy{id}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
 });
 
-Route::prefix('products')->middleware('auth')->group(function(){
+Route::prefix('products')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [ProductController::class, 'index'])->name('products');
     Route::get('/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/store', [ProductController::class, 'store'])->name('products.store');
@@ -75,12 +75,12 @@ Route::prefix('products')->middleware('auth')->group(function(){
     Route::put('/update-image/{id}', [ProductController::class, 'update_image'])->name('products.update.image');
 });
 
-Route::prefix('products_report')->middleware('auth')->group(function(){
+Route::prefix('products_report')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [ProductReportController::class, 'index'])->name('products_report');
     Route::get('/change-stock', [ProductReportController::class, 'changeStock'])->name('products_report.change_stock');
 });
 
-Route::prefix('users')->middleware('auth')->group(function(){
+Route::prefix('users')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [UserController::class, 'index'])->name('users');
     Route::get('/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/store', [UserController::class, 'store'])->name('users.store');
@@ -91,7 +91,7 @@ Route::prefix('users')->middleware('auth')->group(function(){
     Route::get('/change-password/{id}/{password}', [UserController::class, 'changePassword'])->name('users.password');
 });
 
-Route::prefix('purchases')->middleware('auth')->group(function(){
+Route::prefix('purchases')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [PurchaseController::class, 'index'])->name('purchases');
     Route::get('/create/{id_product}', [PurchaseController::class, 'create'])->name('purchases.create');
     Route::post('/store', [PurchaseController::class, 'store'])->name('purchases.store');
