@@ -18,7 +18,7 @@
                             </div><!-- End Logo -->
 
                             <div class="card mb-3">
-
+                                {{-- <img src="{{ asset('images/login.jpg') }}" alt="" class="img-fluid"> --}}
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
@@ -73,7 +73,7 @@
                             </div>
 
                             <div class="credits">
-                                Designed by: Edward J. Pineda</a>
+                                Desarrollado por: <strong><a href="https://github.com/xEdwardP" target="_blank">xEdwardP</a></strong>
                             </div>
 
                         </div>
